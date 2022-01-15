@@ -17,6 +17,7 @@ class ResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setupBinding()
         setupJanken()
+        setupBackButton()
     }
 
     fun setupBinding() {
@@ -57,6 +58,13 @@ class ResultActivity : AppCompatActivity() {
             0 -> binding.resultLabel.setText(R.string.result_draw)
             1 -> binding.resultLabel.setText(R.string.result_win)
             2 -> binding.resultLabel.setText(R.string.result_lose)
+        }
+    }
+
+    fun setupBackButton() {
+        binding.backButton.setOnClickListener {
+            // 現在のアクティビティを終了して、前のアクティビティに戻る
+            finish()
         }
     }
 
