@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         // 第2引数はjava.lang.Classを指定する
         // この第2引数をKotlinでは「クラス名::class.java」と書く
         val resultsActivityIntent = Intent(this, ResultActivity::class.java)
+        resultsActivityIntent.putExtra("MY_HAND", view?.id)
         startActivity(resultsActivityIntent)
     }
 }
