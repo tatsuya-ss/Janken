@@ -14,10 +14,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setupBinding()
+        setupButton()
+    }
+
+    fun setupBinding() {
         // ビューバインディングの設定
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+    }
 
+    fun setupButton() {
         // ボタンの処理を設定
         binding.gu.setOnClickListener {
             onJankenButtonTapped(it)
@@ -28,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         binding.pa.setOnClickListener {
             onJankenButtonTapped(it)
         }
-
     }
 
     // 引数はViewを受け取れるように指定
