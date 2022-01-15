@@ -30,40 +30,52 @@ class ResultActivity : AppCompatActivity() {
     private fun setupJanken() {
         val id = intent.getIntExtra("MY_HAND", 0)
         val myHand: Int
-        myHand = when(id) {
+        // myHandのイメージをセットしてmyHandのIntを返す
+        myHand = bindMyHandImageAndReturnMyHand(id)
+        // コンピュータの手を決める
+        val comHand = getHand()
+        // Comのイメージをセットする
+        bindComHandImage(comHand)
+        // 勝敗を判定する
+        val gameResult = (comHand - myHand + 3) % 3
+        // テキストをセットする
+        setText(gameResult)
+        // ゲームデータを保存する
+        saveData(myHand, comHand, gameResult)
+    }
+
+    private fun bindMyHandImageAndReturnMyHand(id: Int): Int {
+        when(id) {
             R.id.gu -> {
                 binding.myHandImage.setImageResource(R.drawable.gu)
-                gu
+                return gu
             }
             R.id.choki -> {
                 binding.myHandImage.setImageResource(R.drawable.choki)
-                choki
+                return choki
             }
             R.id.pa -> {
                 binding.myHandImage.setImageResource(R.drawable.pa)
-                pa
+                return pa
             }
-            else -> gu
+            else -> return gu
         }
+    }
 
-        // コンピュータの手を決める
-        val comHand = getHand()
+    private fun bindComHandImage(comHand: Int) {
         when(comHand) {
             gu -> binding.comHandImage.setImageResource(R.drawable.com_gu)
             choki -> binding.comHandImage.setImageResource(R.drawable.com_choki)
             pa -> binding.comHandImage.setImageResource(R.drawable.com_pa)
         }
+    }
 
-        // 勝敗を判定する
-        val gameResult = (comHand - myHand + 3) % 3
+    private fun setText(gameResult: Int) {
         when(gameResult) {
             0 -> binding.resultLabel.setText(R.string.result_draw)
             1 -> binding.resultLabel.setText(R.string.result_win)
             2 -> binding.resultLabel.setText(R.string.result_lose)
         }
-
-        // ゲームデータを保存する
-        saveData(myHand, comHand, gameResult)
     }
 
     private fun setupBackButton() {
